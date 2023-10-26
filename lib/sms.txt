@@ -1,0 +1,125 @@
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'addnumber.dart';
+import 'edit_sms.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: 'AIzaSyBWNWbmCjVFX1GEQel6LQ7F8cIL-gDGcs',
+      appId: '1:418950512097:android:7b1fd64c0c6e67985166a0',
+      messagingSenderId: '418950512097',
+      projectId: 'demension-v1-database',
+      databaseURL:
+          'https://demension-v1-database-default-rtdb.asia-southeast1.firebasedatabase.app',
+    ),
+  );
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ProfileScreen(),
+    );
+  }
+}
+
+// Function to fetch medication data from Firestore
+Stream<QuerySnapshot> fetchSMS() {
+  return FirebaseFirestore.instance
+      .collection('device')
+      .doc('31y1sQrytWv6r8gmNSwg')
+      .collection('admin')
+      .doc('Ardvn3AF3sEqkz1nC5Uc')
+      .collection('SMS') // Access the 'SMS' subcollection
+      .snapshots();
+}
+
+class ProfileScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('SMS Settings'),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: fetchSMS(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  final smsDocs = snapshot.data!.docs;
+                  return ListView.builder(
+                    itemCount: smsDocs.length,
+                    itemBuilder: (context, index) {
+                      final data =
+                          smsDocs[index].data() as Map<String, dynamic>;
+                      final smsNum = data['smsNum'];
+                      final smsName = data['smsName'];
+                      final smsStatus = data['smsStatus'];
+                      return GestureDetector(
+                        onTap: () {
+                          // Navigate to the EditSMSPage when a card is tapped
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => EditSMSPage(
+                                smsNum: smsNum,
+                                smsName: smsName,
+                                smsStatus: smsStatus,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          elevation: 3, // Add a shadow to the card
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          child: ListTile(
+                            title: Text(
+                              smsNum,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            subtitle: Text(
+                              'Name: $smsName\nStatus: $smsStatus',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AddNumberPage(),
+                  ),
+                );
+              },
+              child: Text('Add Cellphone Number'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

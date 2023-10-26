@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "418950512097",
+    "firebase_url": "https://demension-v1-database-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "demension-v1-database",
+    "storage_bucket": "demension-v1-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418950512097:android:0173bdc4b4f120835166a0",
+        "android_client_info": {
+          "package_name": "com.example.demension_version1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWNWbmCjVFX1GEQel6lPQ7F8cIL-gDGcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418950512097:android:d10024bf6356b7395166a0",
+        "android_client_info": {
+          "package_name": "com.example.geofence_crud"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWNWbmCjVFX1GEQel6lPQ7F8cIL-gDGcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418950512097:android:7b1fd64c0c6e67985166a0",
+        "android_client_info": {
+          "package_name": "com.example.reports"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWNWbmCjVFX1GEQel6lPQ7F8cIL-gDGcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
