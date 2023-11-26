@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'google_map.dart';
 
 class AddNumberPage extends StatefulWidget {
   @override
@@ -20,13 +21,46 @@ class _AddNumberPageState extends State<AddNumberPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Cellphone Number'),
+        title: Text('Add Geofence Coordinates.'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
+
+            ButtonBar(
+              buttonPadding: EdgeInsets.zero,
+              children: <Widget>[
+                /*
+                ElevatedButton.icon(
+                  label: const Text('Edit'),
+                  icon: Icon(
+                    Icons.edit,
+                  ),
+                  //color: Colors.blue,
+                  onPressed: () {},
+                ),*/
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: ElevatedButton.icon(
+                    label: const Text('PIN'),
+                    icon: Icon(Icons.language),
+                    //color: Colors.blue,
+                    onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MapScreen(),
+                      ),
+                    );
+                },
+                  ),
+                ),
+              ],
+            ),
+
+
             TextField(
               controller: _geoname,
               decoration: InputDecoration(labelText: 'Geofence Name'),
